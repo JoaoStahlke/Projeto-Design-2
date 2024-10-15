@@ -38,9 +38,11 @@ public class PsicologoView {
         espLabel.setBounds(10, 50, 80, 25);
         panel.add(espLabel);
 
-        JTextField espText = new JTextField(20);
-        espText.setBounds(100, 50, 165, 25);
-        panel.add(espText);
+        // ComboBox para especializações
+        String[] especializacoes = {"Adulto", "Infantil"};
+        JComboBox<String> espComboBox = new JComboBox<>(especializacoes);
+        espComboBox.setBounds(100, 50, 165, 25);
+        panel.add(espComboBox);
 
         JLabel crpLabel = new JLabel("CRP:");
         crpLabel.setBounds(10, 80, 80, 25);
@@ -90,19 +92,18 @@ public class PsicologoView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeText.getText();
-                String especialidade = espText.getText();
                 String crp = crpText.getText();
                 String email = emailText.getText();
+                String especializacaoSelecionada = (String) espComboBox.getSelectedItem();
 
-                if (validarEntrada(nome, especialidade, crp, email)) {
-                    Psicologo psicologo = new Psicologo();
-                    psicologo.setNome(nome);
-                    psicologo.setEspecialidade(especialidade);
-                    psicologo.setCrp(crp);
-                    psicologo.setEmail(email);
+                Especializacao especializacao = especializacaoSelecionada.equals("Adulto")
+                        ? new EspecializacaoAdulto()
+                        : new EspecializacaoInfantil();
+
+                if (validarEntrada(nome, crp, email)) {
+                    Psicologo psicologo = new Psicologo(0, nome, email, crp, especializacao);
                     controller.adicionarPsicologo(psicologo);
                     nomeText.setText("");
-                    espText.setText("");
                     crpText.setText("");
                     emailText.setText("");
                     JOptionPane.showMessageDialog(panel, "Psicólogo adicionado com sucesso!");
@@ -117,7 +118,7 @@ public class PsicologoView {
                 textArea.setText("");
                 for (Psicologo psicologo : psicologos) {
                     textArea.append("ID: " + psicologo.getId() + ", Nome: " + psicologo.getNome() +
-                            ", Especialidade: " + psicologo.getEspecialidade() + ", CRP: " + psicologo.getCrp() +
+                            ", Especialidade: " + psicologo.getDescricaoEspecializacao() + ", CRP: " + psicologo.getCrp() +
                             ", Email: " + psicologo.getEmail() + "\n");
                 }
             }
@@ -129,17 +130,16 @@ public class PsicologoView {
                 try {
                     int id = Integer.parseInt(idText.getText());
                     String nome = nomeText.getText();
-                    String especialidade = espText.getText();
                     String crp = crpText.getText();
                     String email = emailText.getText();
+                    String especializacaoSelecionada = (String) espComboBox.getSelectedItem();
 
-                    if (validarEntrada(nome, especialidade, crp, email)) {
-                        Psicologo psicologo = new Psicologo();
-                        psicologo.setId(id);
-                        psicologo.setNome(nome);
-                        psicologo.setEspecialidade(especialidade);
-                        psicologo.setCrp(crp);
-                        psicologo.setEmail(email);
+                    Especializacao especializacao = especializacaoSelecionada.equals("Adulto")
+                            ? new EspecializacaoAdulto()
+                            : new EspecializacaoInfantil();
+
+                    if (validarEntrada(nome, crp, email)) {
+                        Psicologo psicologo = new Psicologo(id, nome, email, crp, especializacao);
                         controller.atualizarPsicologo(psicologo);
                         JOptionPane.showMessageDialog(panel, "Psicólogo atualizado com sucesso!");
                     }
@@ -163,13 +163,9 @@ public class PsicologoView {
         });
     }
 
-    private boolean validarEntrada(String nome, String especialidade, String crp, String email) {
+    private boolean validarEntrada(String nome, String crp, String email) {
         if (nome.length() < 3) {
             JOptionPane.showMessageDialog(null, "Nome deve ter mais de 2 caracteres.");
-            return false;
-        }
-        if (especialidade.length() < 5) {
-            JOptionPane.showMessageDialog(null, "Especialidade deve ter mais de 4 caracteres.");
             return false;
         }
         if (!crp.matches("\\d{4,6}/\\d{2}")) {
