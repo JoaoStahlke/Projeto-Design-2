@@ -1,7 +1,6 @@
 package Classes;
 
-import Classes.Especializacao;
-import Classes.ProfissionalSaude;
+import EspecializacaoBridge.Especializacao;
 
 public class Psicologo extends ProfissionalSaude {
     private String crp;

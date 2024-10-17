@@ -1,8 +1,7 @@
 package Classes;
 
-import Classes.Consulta;
-import Classes.Especializacao;
-import Classes.Observer;
+import EspecializacaoBridge.Especializacao;
+import Observer.Observer;
 
 public abstract class ProfissionalSaude implements Observer {
     protected int id;

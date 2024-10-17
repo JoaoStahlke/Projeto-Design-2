@@ -1,4 +1,4 @@
-package Classes;
+package Observer;
 
 import Classes.Consulta;
 

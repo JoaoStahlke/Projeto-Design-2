@@ -1,4 +1,4 @@
-package Classes;
+package EspecializacaoBridge;
 
 public interface Especializacao {
     String getDescricao();

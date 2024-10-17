@@ -1,6 +1,6 @@
-package Classes;
+package EspecializacaoBridge;
 
-import Classes.Especializacao;
+import EspecializacaoBridge.Especializacao;
 
 public class EspecializacaoInfantil implements Especializacao {
     @Override

@@ -1,6 +1,6 @@
-package Classes;
+package Observer;
 
-import Classes.Observer;
+import Observer.Observer;
 
 public interface Subject {
     void registerObserver(Observer o);

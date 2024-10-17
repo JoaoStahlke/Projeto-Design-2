@@ -1,4 +1,6 @@
-package Classes;
+package Strategy;
+
+import Strategy.PagamentoStrategy;
 
 public class PagamentoPix implements PagamentoStrategy {
     @Override

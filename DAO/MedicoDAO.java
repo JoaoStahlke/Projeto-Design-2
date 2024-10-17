@@ -1,10 +1,9 @@
 package DAO;
 
-import Classes.Especializacao;
-import Classes.EspecializacaoAdulto;
-import Classes.EspecializacaoInfantil;
+import EspecializacaoBridge.Especializacao;
+import EspecializacaoBridge.EspecializacaoAdulto;
+import EspecializacaoBridge.EspecializacaoInfantil;
 import Classes.Medico;
-import DAO.DAO;
 
 import java.sql.*;
 import java.util.ArrayList;
