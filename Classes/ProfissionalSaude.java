@@ -17,6 +17,10 @@ public abstract class ProfissionalSaude implements Observer {
         this.especializacao = especializacao;
     }
 
+    public ProfissionalSaude() {
+
+    }
+
     public abstract String getTipo();
 
     @Override
